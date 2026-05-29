@@ -315,10 +315,41 @@
             timeline.innerHTML = '<div class="empty-state">Nessuna tappa trovata nell\'URL.</div>';
         }
 
-        // ── 3. Pulsante Apri / Scarica ─────────────────────────────────
-        const btn = document.getElementById('openAppBtn');
-        const hash = window.location.hash;
-        const deepLink = 'flowapp://itinerary' + hash;
+        // ── 3. Pulsante Copia Link ─────────────────────────────────
+const btn = document.getElementById('openAppBtn');
+
+btn.textContent = '⎘ Copia link itinerario';
+btn.style.backgroundColor = 'rgb(83, 96, 254)';
+
+btn.addEventListener('click', function(e) {
+    e.preventDefault();
+    const url = window.location.href;
+    
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function() {
+            btn.textContent = '✓ Link copiato!';
+            btn.style.backgroundColor = '#1a2e1a';
+            btn.style.color = 'rgb(198, 255, 141)';
+            setTimeout(function() {
+                btn.textContent = '⎘ Copia link itinerario';
+                btn.style.backgroundColor = 'rgb(83, 96, 254)';
+                btn.style.color = 'white';
+            }, 2500);
+        });
+    } else {
+        // Fallback per browser vecchi
+        const el = document.createElement('textarea');
+        el.value = url;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        btn.textContent = '✓ Link copiato!';
+        setTimeout(function() {
+            btn.textContent = '⎘ Copia link itinerario';
+        }, 2500);
+    }
+});
 
         // Prova silenziosa per capire se l'app è installata
         let appFound = false;
