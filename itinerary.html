@@ -229,7 +229,7 @@
         </footer>
     </div>
 
-  <script>
+<script>
     // ── 1. Legge e mostra i dati dall'URL ──────────────────────────
     const hashData = window.location.hash.substring(1);
     const parti = hashData ? hashData.split('/') : [];
@@ -313,50 +313,25 @@
         timeline.innerHTML = '<div class="empty-state">Nessuna tappa trovata.</div>';
     }
 
-    // ── 3. Pulsante Copia Link (unico listener, nessun deep link) ──
+    // ── 3. Pulsante Scarica App ────────────────────────────────────
     const btn = document.getElementById('openAppBtn');
-    btn.textContent = '⎘ Copia link itinerario';
+    btn.textContent = '⬇︎ Scarica FLOW App';
     btn.style.backgroundColor = 'rgb(83, 96, 254)';
 
     btn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
-        
-        const url = window.location.href;
 
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            navigator.clipboard.writeText(url).then(function() {
-                btn.textContent = '✓ Link copiato!';
-                btn.style.backgroundColor = '#1a2e1a';
-                btn.style.color = 'rgb(198, 255, 141)';
-                setTimeout(function() {
-                    btn.textContent = '⎘ Copia link itinerario';
-                    btn.style.backgroundColor = 'rgb(83, 96, 254)';
-                    btn.style.color = 'white';
-                }, 2500);
-            }).catch(function() {
-                fallbackCopy(url);
-            });
+        const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        const isAndroid = /android/i.test(navigator.userAgent);
+
+        if (isAndroid) {
+            window.location.href = 'https://play.google.com/store/apps';
         } else {
-            fallbackCopy(url);
+            // iOS e desktop vanno su App Store
+            window.location.href = 'https://apps.apple.com';
         }
     });
-
-    function fallbackCopy(url) {
-        const el = document.createElement('textarea');
-        el.value = url;
-        el.style.position = 'fixed';
-        el.style.opacity = '0';
-        document.body.appendChild(el);
-        el.focus();
-        el.select();
-        document.execCommand('copy');
-        document.body.removeChild(el);
-        btn.textContent = '✓ Link copiato!';
-        setTimeout(function() {
-            btn.textContent = '⎘ Copia link itinerario';
-        }, 2500);
-    }
 </script>
 </body>
 </html>
