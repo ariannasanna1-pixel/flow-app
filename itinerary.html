@@ -237,13 +237,11 @@
     const dateStr = parti[1] || null;
     const eventiRaw = parti[2] ? decodeURIComponent(parti[2]) : null;
 
-    // Nome utente
     if (user) {
         const nomePulito = user.replace(/-/g, ' ').toUpperCase();
         document.getElementById('userName').innerText = 'ITINERARIO DI ' + nomePulito;
     }
 
-    // Data
     if (dateStr) {
         const opzioni = { day: 'numeric', month: 'long', year: 'numeric' };
         const dataFormattata = new Date(dateStr).toLocaleDateString('it-IT', opzioni);
@@ -280,10 +278,7 @@
 
                     const item = document.createElement('div');
                     item.className = 'timeline-item';
-
-                    const noteHtml = ev.n
-                        ? `<div class="user-note">${ev.n}</div>`
-                        : '';
+                    const noteHtml = ev.n ? `<div class="user-note">${ev.n}</div>` : '';
 
                     item.innerHTML = `
                         <div class="timeline-badge"></div>
@@ -313,22 +308,53 @@
         timeline.innerHTML = '<div class="empty-state">Nessuna tappa trovata.</div>';
     }
 
-    // ── 3. Pulsante Scarica App ────────────────────────────────────
+    // ── 3. Logica pulsante Scarica ─────────────────────────────────
     const btn = document.getElementById('openAppBtn');
-    btn.textContent = '⬇︎ Scarica FLOW App';
-    btn.style.backgroundColor = 'rgb(83, 96, 254)';
 
+    // Pulsante nascosto di default
+    btn.style.display = 'none';
+
+    // Prova ad aprire il deep link silenziosamente
+    // Se la pagina NON va in background entro 2s
+    // significa che l'app non è installata → mostra il pulsante
+    const hash = window.location.hash;
+    const deepLink = 'flowapp://itinerary' + hash;
+
+    let appOpened = false;
+
+    document.addEventListener('visibilitychange', function onVis() {
+        if (document.hidden) {
+            // La pagina è andata in background = app si è aperta
+            appOpened = true;
+            document.removeEventListener('visibilitychange', onVis);
+        }
+    });
+
+    // Tenta apertura silenziosa
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+    iframe.src = deepLink;
+
+    setTimeout(function() {
+        document.body.removeChild(iframe);
+        if (!appOpened) {
+            // App non trovata: mostra il pulsante di download
+            btn.style.display = 'inline-block';
+            btn.textContent = '⬇︎ Scarica FLOW App';
+        }
+        // Se appOpened è true: pulsante rimane nascosto
+    }, 2000);
+
+    // Click sul pulsante
     btn.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
 
-        const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
         const isAndroid = /android/i.test(navigator.userAgent);
-
         if (isAndroid) {
             window.location.href = 'https://play.google.com/store/apps';
         } else {
-            // iOS e desktop vanno su App Store
             window.location.href = 'https://apps.apple.com';
         }
     });
