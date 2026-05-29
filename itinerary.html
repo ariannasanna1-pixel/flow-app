@@ -15,12 +15,8 @@
             --color-text-muted: #8E8E9F;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
 
         body {
             background-color: var(--color-bg);
@@ -32,7 +28,6 @@
             min-height: 100vh;
         }
 
-        /* Contenitore stile Smartphone dell'App */
         .app-container {
             width: 100%;
             max-width: 480px;
@@ -44,21 +39,19 @@
             flex-direction: column;
         }
 
-        /* Header del Passaporto / Itinerario */
         .app-header {
             background-color: var(--color-primary);
             padding: 30px 20px;
             text-align: center;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
-            position: relative;
         }
 
         .app-header h1 {
             font-size: 14px;
             font-weight: 900;
             letter-spacing: 3px;
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255,255,255,0.8);
             margin-bottom: 8px;
         }
 
@@ -78,11 +71,7 @@
             font-weight: 600;
         }
 
-        /* Lista dell'Itinerario */
-        .itinerary-content {
-            padding: 25px 20px;
-            flex: 1;
-        }
+        .itinerary-content { padding: 25px 20px; flex: 1; }
 
         .section-title {
             font-size: 11px;
@@ -93,55 +82,33 @@
             text-transform: uppercase;
         }
 
-        /* Timeline / Tappe dell'itinerario */
-        .timeline {
-            position: relative;
-            padding-left: 20px;
-        }
+        .timeline { position: relative; padding-left: 20px; }
 
-        /* Linea verticale tratteggiata */
         .timeline::before {
             content: '';
             position: absolute;
-            left: 4px;
-            top: 10px;
-            bottom: 10px;
+            left: 4px; top: 10px; bottom: 10px;
             width: 2px;
             border-left: 2px dashed rgba(83, 96, 254, 0.4);
         }
 
-        .timeline-item {
-            position: relative;
-            margin-bottom: 25px;
-        }
+        .timeline-item { position: relative; margin-bottom: 25px; }
+        .timeline-item:last-child { margin-bottom: 0; }
 
-        .timeline-item:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Indicatore tonda della tappa */
         .timeline-badge {
             position: absolute;
-            left: -22px;
-            top: 4px;
-            width: 12px;
-            height: 12px;
+            left: -22px; top: 4px;
+            width: 12px; height: 12px;
             border-radius: 50%;
             background-color: var(--color-secondary);
             border: 3px solid var(--color-primary);
             box-shadow: 0 0 8px var(--color-secondary);
         }
 
-        /* Card dell'Evento */
         .event-card {
             background-color: var(--color-surface-card);
             border-radius: 20px;
             padding: 18px;
-            transition: transform 0.2s;
-        }
-
-        .event-card:hover {
-            transform: translateY(-2px);
         }
 
         .event-header {
@@ -162,11 +129,7 @@
             letter-spacing: 1px;
         }
 
-        .event-time {
-            font-size: 11px;
-            color: var(--color-text-muted);
-            font-weight: bold;
-        }
+        .event-time { font-size: 11px; color: var(--color-text-muted); font-weight: bold; }
 
         .event-title {
             font-size: 16px;
@@ -185,11 +148,8 @@
             font-weight: 600;
         }
 
-        .event-location strong {
-            color: var(--color-primary);
-        }
+        .event-location strong { color: var(--color-primary); }
 
-        /* Sezione Note personali integrate dall'utente nell'app */
         .user-note {
             margin-top: 12px;
             padding-top: 10px;
@@ -201,14 +161,8 @@
             gap: 6px;
         }
 
-        .user-note::before {
-            content: '“';
-            font-size: 18px;
-            line-height: 1;
-            font-family: serif;
-        }
+        .user-note::before { content: '"'; font-size: 18px; line-height: 1; font-family: serif; }
 
-        /* Tempo di percorrenza tra le tappe */
         .walk-time {
             font-size: 11px;
             color: var(--color-text-muted);
@@ -219,11 +173,6 @@
             font-weight: 600;
         }
 
-        .walk-time svg {
-            fill: var(--color-text-muted);
-        }
-
-        /* Footer in stile Passaporto FLOW */
         .app-footer {
             text-align: center;
             padding: 25px 20px;
@@ -246,117 +195,184 @@
             font-weight: 800;
             font-size: 13px;
             letter-spacing: 1px;
-            transition: opacity 0.2s;
+            cursor: pointer;
+            border: none;
             box-shadow: 0 4px 15px rgba(83, 96, 254, 0.4);
         }
 
-        .cta-btn:hover {
-            opacity: 0.9;
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--color-text-muted);
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
-
     <div class="app-container">
         <header class="app-header">
             <h1>ITINERARIO OTTIMIZZATO</h1>
-            <div class="user-badge" id="userName">DESIGNER PASSPORT</div>
-            <div class="date-sub">Fuorisalone 2026 · Milano</div>
+            <div class="user-badge" id="userName">FLOW PASSPORT</div>
+            <div class="date-sub" id="dateSub">Design Week 2026</div>
         </header>
 
         <div class="itinerary-content">
             <h2 class="section-title">Le Tappe Condivise</h2>
-            
-            <div class="timeline">
-                
-                <div class="timeline-item">
-                    <div class="timeline-badge"></div>
-                    <div class="event-card">
-                        <div class="event-header">
-                            <span class="event-tag">Installazioni</span>
-                            <span class="event-time">10:00 - 19:00</span>
-                        </div>
-                        <h3 class="event-title">ALBORI</h3>
-                        <div class="event-location">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                            <strong>CASTELLO</strong> · Piazza Castello, Milano
-                        </div>
-                        <div class="user-note">Passare qui come prima tappa per evitare la coda all'installazione immersiva!</div>
-                    </div>
-                </div>
-
-                <div class="walk-time">
-                    <svg width="14" height="14" viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3c1 1.15 2.41 2 4 2V10.5c-1.19 0-2.42-.6-3.17-1.58l-1-1.6c-.4-.64-1.11-1.02-1.88-1.02-.28 0-.57.04-.85.13L4.2 7.9V13h2V9.3l1.8-.7"/></svg>
-                    <span>~ 12 min a piedi fino alla prossima tappa</span>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-badge"></div>
-                    <div class="event-card">
-                        <div class="event-header">
-                            <span class="event-tag">Installazioni</span>
-                            <span class="event-time">10:00 - 20:00</span>
-                        </div>
-                        <h3 class="event-title">MAREA / TIDE</h3>
-                        <div class="event-location">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                            <strong>SOLFERINO</strong> · Via Solferino, 24, Milano
-                        </div>
-                    </div>
-                </div>
-
-                <div class="walk-time">
-                    <svg width="14" height="14" viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3c1 1.15 2.41 2 4 2V10.5c-1.19 0-2.42-.6-3.17-1.58l-1-1.6c-.4-.64-1.11-1.02-1.88-1.02-.28 0-.57.04-.85.13L4.2 7.9V13h2V9.3l1.8-.7"/></svg>
-                    <span>~ 8 min a piedi fino alla prossima tappa</span>
-                </div>
-
-                <div class="timeline-item">
-                    <div class="timeline-badge"></div>
-                    <div class="event-card">
-                        <div class="event-header">
-                            <span class="event-tag">Lighting Design</span>
-                            <span class="event-time">10:00 - 22:00</span>
-                        </div>
-                        <h3 class="event-title">Drifting Lights</h3>
-                        <div class="event-location">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
-                            <strong>FORO BUONAPARTE</strong> · Foro Buonaparte, 68, Milano
-                        </div>
-                        <div class="user-note">Hanno la luce dinamica di Preciosa Lighting, imperdibile di sera.</div>
-                    </div>
-                </div>
-
+            <div class="timeline" id="timeline">
+                <div class="empty-state">Caricamento itinerario...</div>
             </div>
         </div>
 
         <footer class="app-footer">
             <div>FLOW · DESIGN WEEK PASSPORT</div>
-            <a href="#" class="cta-btn">Apri in FLOW App</a>
+            <button class="cta-btn" id="openAppBtn">⬇︎ Scarica FLOW App</button>
         </footer>
     </div>
 
-  <script>
-    const hashData = window.location.hash.substring(1); 
-    if (hashData) {
-        const parti = hashData.split('/');
-        const user = decodeURIComponent(parti[0]);
-        const dateStr = parti[1];
+    <script>
+        // ── 1. Legge e mostra i dati dall'URL ──────────────────────────
+        const hashData = window.location.hash.substring(1);
+        const parti = hashData ? hashData.split('/') : [];
+        const user = parti[0] ? decodeURIComponent(parti[0]) : null;
+        const dateStr = parti[1] || null;
+        const eventiRaw = parti[2] ? decodeURIComponent(parti[2]) : null;
 
+        // Nome utente
         if (user) {
-            // Sostituisce i trattini usati nell'app con spazi vuoti legibili
             const nomePulito = user.replace(/-/g, ' ').toUpperCase();
-            document.getElementById('userName').innerText = "ITINERARIO DI " + nomePulito;
+            document.getElementById('userName').innerText = 'ITINERARIO DI ' + nomePulito;
         }
 
+        // Data
         if (dateStr) {
             const opzioni = { day: 'numeric', month: 'long', year: 'numeric' };
-            const dataConfigurata = new Date(dateStr).toLocaleDateString('it-IT', opzioni);
-            const dateSub = document.querySelector('.date-sub');
-            if (dateSub) {
-                dateSub.innerText = `Fuorisalone · ${dataConfigurata}`;
-            }
+            const dataFormattata = new Date(dateStr).toLocaleDateString('it-IT', opzioni);
+            document.getElementById('dateSub').innerText = 'Fuorisalone · ' + dataFormattata;
         }
-    }
-</script>
+
+        // ── 2. Costruisce la timeline con gli eventi reali ─────────────
+        const timeline = document.getElementById('timeline');
+
+        if (eventiRaw) {
+            try {
+                const eventi = JSON.parse(eventiRaw);
+
+                if (eventi.length === 0) {
+                    timeline.innerHTML = '<div class="empty-state">Nessuna tappa in questo itinerario.</div>';
+                } else {
+                    timeline.innerHTML = '';
+
+                    eventi.forEach(function(ev, index) {
+                        // Tempo di cammino tra le tappe
+                        if (index > 0 && ev.w > 0) {
+                            const walk = document.createElement('div');
+                            walk.className = 'walk-time';
+                            walk.innerHTML = `
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z
+                                             M9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 
+                                             .6-3c1 1.15 2.41 2 4 2V10.5c-1.19 0-2.42-.6-3.17-1.58
+                                             l-1-1.6c-.4-.64-1.11-1.02-1.88-1.02-.28 0-.57.04-.85.13
+                                             L4.2 7.9V13h2V9.3l1.8-.7"/>
+                                </svg>
+                                <span>~ ${ev.w} min a piedi</span>`;
+                            timeline.appendChild(walk);
+                        }
+
+                        // Card della tappa
+                        const item = document.createElement('div');
+                        item.className = 'timeline-item';
+
+                        const noteHtml = ev.n
+                            ? `<div class="user-note">${ev.n}</div>`
+                            : '';
+
+                        item.innerHTML = `
+                            <div class="timeline-badge"></div>
+                            <div class="event-card">
+                                <div class="event-header">
+                                    <span class="event-tag">Tappa ${index + 1}</span>
+                                    <span class="event-time">${ev.h}</span>
+                                </div>
+                                <h3 class="event-title">${ev.t}</h3>
+                                <div class="event-location">
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" 
+                                         stroke="currentColor" stroke-width="2.5">
+                                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                    <strong>${ev.l}</strong>
+                                </div>
+                                ${noteHtml}
+                            </div>`;
+                        timeline.appendChild(item);
+                    });
+                }
+            } catch(e) {
+                timeline.innerHTML = '<div class="empty-state">Errore nel caricamento delle tappe.</div>';
+            }
+        } else {
+            timeline.innerHTML = '<div class="empty-state">Nessuna tappa trovata nell\'URL.</div>';
+        }
+
+        // ── 3. Pulsante Apri / Scarica ─────────────────────────────────
+        const btn = document.getElementById('openAppBtn');
+        const hash = window.location.hash;
+        const deepLink = 'flowapp://itinerary' + hash;
+
+        // Prova silenziosa per capire se l'app è installata
+        let appFound = false;
+
+        function tryOpenApp() {
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            // Segna se la pagina va in background (= app aperta)
+            document.addEventListener('visibilitychange', function onVis() {
+                if (document.hidden) {
+                    appFound = true;
+                    document.removeEventListener('visibilitychange', onVis);
+                }
+            });
+
+            iframe.src = deepLink;
+
+            setTimeout(function() {
+                document.body.removeChild(iframe);
+                if (appFound) {
+                    btn.textContent = '✦ Apri in FLOW App';
+                    btn.style.backgroundColor = 'rgb(83, 96, 254)';
+                } else {
+                    btn.textContent = '⬇︎ Scarica FLOW App';
+                    btn.style.backgroundColor = '#1a1a2e';
+                    btn.style.border = '2px solid rgb(83, 96, 254)';
+                }
+            }, 2000);
+        }
+
+        // Avvia il rilevamento al caricamento
+        window.addEventListener('load', tryOpenApp);
+
+        // Click sul pulsante
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (appFound) {
+                // Apre l'app — su iOS funziona solo con build nativa
+                window.location.href = deepLink;
+            } else {
+                // Manda allo store corretto
+                const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+                const isAndroid = /android/i.test(navigator.userAgent);
+                if (isIOS) {
+                    window.location.href = 'https://apps.apple.com';
+                } else if (isAndroid) {
+                    window.location.href = 'https://play.google.com';
+                } else {
+                    alert('Scarica FLOW App dal tuo smartphone!');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
